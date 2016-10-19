@@ -1,0 +1,29 @@
+name: mlnx-kernel
+version: 4.8.0-RC4
+summary: Mellanox SwitchDev Kernel 
+description: Mellanox SwitchDev Kernel 
+confinement: strict  
+type: kernel 
+ 
+parts: 
+    kernel:  
+        plugin: kernel 
+        source: git://kernel.ubuntu.com/ubuntu/unstable.git 
+        source-type: git 
+        kdefconfig: [defconfig, 44.config] 
+        kconfigs:  
+           - CONFIG_LOCALVERSION="-ubuntu-core" 
+           - CONFIG_DEBUG_INFO=n 
+           - CONFIG_SQUASHFS=m 
+           - CONFIG_NET_SWITCHDEV=y 
+           - CONFIG_NET_DEVLINK=y
+           - CONFIG_MLXSW_CORE=m
+           - CONFIG_MLXSW_CORE_HWMON=y
+           - CONFIG_MLXSW_PCI=m
+           - CONFIG_MLXSW_SWITCHX2=m
+           - CONFIG_MLXSW_SPECTRUM=m
+           - CONFIG_MLXSW_SPECTRUM_DCB=y
+        kernel-initrd-modules: 
+           - squashfs 
+           - ahci 
+        stage-packages: [iproute2, bridge-utils, ethtool, fancontrol, lm-sensors]
