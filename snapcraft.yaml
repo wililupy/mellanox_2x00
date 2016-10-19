@@ -1,16 +1,17 @@
 name: mlnx-kernel
-version: 4.8.0-RC4
+version: 4.8.0
 summary: Mellanox SwitchDev Kernel 
 description: Mellanox SwitchDev Kernel 
-confinement: strict  
+confinement: strict 
+grade: stable
 type: kernel 
  
 parts: 
     kernel:  
         plugin: kernel 
-        source: git://kernel.ubuntu.com/ubuntu/unstable.git 
+        source: git://kernel.ubuntu.com/ubuntu/ubuntu-yakkety.git 
         source-type: git 
-        kdefconfig: [defconfig, 44.config] 
+        kdefconfig: ['--makefile=debian/snapcraft.mk', 'branch=master','flavour=generic', 'config'] 
         kconfigs:  
            - CONFIG_LOCALVERSION="-ubuntu-core" 
            - CONFIG_DEBUG_INFO=n 
